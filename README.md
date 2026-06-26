@@ -20,7 +20,7 @@ Questo progetto è un'applicazione backend sviluppata con Spring Boot per facili
 5.  **Notifiche Email:** Invio automatico di email di benvenuto alla registrazione.
 
 ## Struttura del Database
-Il modello di dominio è composto da **8 tabelle principali** interconnesse:
+Il modello di dominio è composto da **8 tabelle** interconnesse:
 * `users`: Dati personali e credenziali.
 * `roles`: Definizione dei permessi.
 * `animals`: Anagrafica degli animali.
@@ -40,7 +40,7 @@ Assicurati di avere installato:
 * PostgreSQL
 
 ### 2. Configurazione Variabili d'Ambiente
-Per far funzionare l'applicazione, rinomina il file `application.properties.example` in `application.properties` (in `src/main/resources`) e configura le seguenti variabili d'ambiente:
+Per far funzionare l'applicazione, rinomina il file `application.properties.example` in `application.properties`, il file si trova in `src/main/resources` e configura le seguenti variabili d'ambiente:
 
 ```properties
 # Database Configuration
@@ -84,4 +84,4 @@ mvn clean install
 mvn spring-boot:run
 ```
 ## Testing con Postman
-All'interno del progetto è presente il file PuppyFriend_Postman_Collection.json. Importalo in Postman per testare tutte le API disponibili.
+All'interno del progetto è presente il file PuppyFriend_Postman_Collection.json. 
