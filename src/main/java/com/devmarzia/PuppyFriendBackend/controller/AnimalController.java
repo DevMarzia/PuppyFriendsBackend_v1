@@ -22,7 +22,6 @@ public class AnimalController {
         this.animalService = animalService;
     }
 
-    // 1. CREATE - Solo per Admin e Volontari
     @PostMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTEER')")
     public ResponseEntity<Animal> createAnimal(@Valid @RequestBody AnimalDto animalDto) {
@@ -30,8 +29,6 @@ public class AnimalController {
         return new ResponseEntity<>(newAnimal, HttpStatus.CREATED);
     }
 
-    // 2. READ (Search) - Pubblico (o per tutti i loggati)
-    // Esempio chiamata: GET /api/animals?status=DISPONIBILE&size=Media
     @GetMapping
     public ResponseEntity<List<Animal>> getAllAnimals(
             @RequestParam(required = false) String status,
@@ -48,10 +45,8 @@ public class AnimalController {
         return ResponseEntity.ok(animal);
     }
 
-    // 3. UPLOAD IMMAGINE
-    // Chiamata: POST /api/animals/{id}/upload
     @PostMapping("/{id}/upload")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTEER')") // Solo chi è autorizzato può caricare foto
+    @PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTEER')") 
     public ResponseEntity<Animal> uploadAnimalImage(
             @PathVariable Long id,
             @RequestParam("file") MultipartFile file) {
