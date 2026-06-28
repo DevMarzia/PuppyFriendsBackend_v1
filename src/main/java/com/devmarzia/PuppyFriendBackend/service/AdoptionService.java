@@ -26,15 +26,15 @@ public class AdoptionService {
     private UserRepository userRepository;
 
     public AdoptionRequest createRequest(AdoptionRequestDto dto, String email) {
-        // 1. Trova l'animale
+        // Trova l'animale
         Animal animal = animalRepository.findById(dto.getAnimalId())
                 .orElseThrow(() -> new ResourceNotFoundException("Animale non trovato"));
 
-        // 2. Trova l'utente (dall'email del token)
+        // Trova l'utente (dall'email del token)
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Utente non trovato"));
 
-        // 3. Crea la richiesta
+        // Crea la richiesta
         AdoptionRequest request = new AdoptionRequest();
         request.setAnimal(animal);
         request.setUser(user);
