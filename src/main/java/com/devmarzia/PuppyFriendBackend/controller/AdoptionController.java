@@ -19,17 +19,15 @@ public class AdoptionController {
     @Autowired
     private AdoptionService adoptionService;
 
-    // Utente crea richiesta: POST /api/adoptions
     @PostMapping
     public ResponseEntity<?> createAdoptionRequest(
             @Valid @RequestBody AdoptionRequestDto dto,
-            @AuthenticationPrincipal UserDetails userDetails) { // Prende l'utente loggato
+            @AuthenticationPrincipal UserDetails userDetails) { 
 
         AdoptionRequest created = adoptionService.createRequest(dto, userDetails.getUsername());
         return ResponseEntity.ok("Richiesta inviata con successo! ID: " + created.getId());
     }
 
-    // Admin vede richieste: GET /api/adoptions
     @GetMapping
     public ResponseEntity<List<AdoptionRequest>> getAllRequests() {
         return ResponseEntity.ok(adoptionService.getAllRequests());
