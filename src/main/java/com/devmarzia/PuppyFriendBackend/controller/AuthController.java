@@ -57,18 +57,18 @@ public class AuthController {
     @PostMapping(value = {"/login", "/signin"})
     public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDto loginDto){
 
-        // 1. Autenticazione tramite Spring Security
+        // Autenticazione tramite Spring Security
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword())
         );
 
-        // 2. Autenticazione salvata nel contesto
+        // Autenticazione salvata 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // 3. Genera il token
+        // Genera il token
         String token = jwtTokenProvider.generateToken(authentication);
 
-        // 4. Restituisce il token al client
+        // Restituisce il token al client
         return ResponseEntity.ok(new JWTAuthResponse(token));
     }
 
@@ -76,12 +76,12 @@ public class AuthController {
     @PostMapping(value = {"/register", "/signup"})
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto){
 
-        // 1. Controlla se l'email esiste già
+        // Controlla se l'email esiste già
         if(userRepository.existsByEmail(registerDto.getEmail())){
             return new ResponseEntity<>("Email già in uso!", HttpStatus.BAD_REQUEST);
         }
 
-        // 2. Crea nuovo utente
+        // Crea nuovo utente
         User user = new User();
         user.setFirstName(registerDto.getFirstName());
         user.setLastName(registerDto.getLastName());
@@ -91,7 +91,7 @@ public class AuthController {
         // Cripta la password prima di salvarla
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 
-        // 3. Gestione Ruoli
+        // Gestione Ruoli
         Set<String> strRoles = registerDto.getRoles();
         Set<Role> roles = new HashSet<>();
 
@@ -125,12 +125,12 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
-        // 3. BLOCCO INVIO EMAIL
+        // INVIO EMAIL
         try {
             System.out.println("Tentativo invio mail a: " + registerDto.getEmail());
             emailService.sendWelcomeEmail(registerDto.getEmail(), registerDto.getFirstName());
         } catch (Exception e) {
-            // Se la mail fallisce, non blocchiamo la registrazione ma stampiamo l'errore
+            // Se la mail fallisce, non blocca la registrazione ma stampa l'errore
             System.err.println("Errore durante l'invio della mail: " + e.getMessage());
         }
 
