@@ -31,19 +31,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        // 1. Ottiene il token dalla richiesta
+        // Ottiene il token dalla richiesta
         String token = getTokenFromRequest(request);
 
-        // 2. Validazione del token
+        // Validazione del token
         if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
 
-            // 3. Ottiene l'username dal token
+            // Ottiene l'username dal token
             String username = jwtTokenProvider.getUsername(token);
 
-            // 4. Carca l'utente associato dal database
+            // Carca l'utente associato dal database
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            // 5. Crea l'oggetto di autenticazione
+            // Crea l'oggetto di autenticazione
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
@@ -52,7 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-            // 6. Imposta l'autenticazione nel contesto di sicurezza
+            // Imposta l'autenticazione nel contesto di sicurezza
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 
