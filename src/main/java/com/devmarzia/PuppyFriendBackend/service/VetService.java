@@ -15,7 +15,7 @@ public class VetService {
     @Autowired private AnimalRepository animalRepository;
     @Autowired private VaccinationRepository vaccinationRepository;
 
-    // 1. Creo la cartella clinica per un animale
+    // Creo la cartella clinica per un animale
     public MedicalRecord createMedicalRecord(Long animalId, MedicalRecord recordData) {
         Animal animal = animalRepository.findById(animalId)
                 .orElseThrow(() -> new ResourceNotFoundException("Animale non trovato"));
@@ -28,7 +28,7 @@ public class VetService {
         return medicalRecordRepository.save(recordData);
     }
 
-    // 2. Aggiungo un vaccino
+    // Aggiungo un vaccino
     public Vaccination addVaccine(Long medicalRecordId, Vaccination vaccine) {
         MedicalRecord record = medicalRecordRepository.findById(medicalRecordId)
                 .orElseThrow(() -> new ResourceNotFoundException("Cartella clinica non trovata"));
@@ -37,7 +37,7 @@ public class VetService {
         return vaccinationRepository.save(vaccine);
     }
 
-    // 3. Leggo tutto (Cartella + Vaccini + Visite)
+    // Leggo tutto (Cartella + Vaccini + Visite)
     public MedicalRecord getMedicalRecordByAnimal(Long animalId) {
         // Cercho la cartella associata a quell'animale
         return medicalRecordRepository.findAll().stream()
@@ -46,7 +46,7 @@ public class VetService {
                 .orElseThrow(() -> new ResourceNotFoundException("Nessuna cartella clinica per questo animale"));
     }
 
-    // 4.Visita Veterinaria
+    // Visita Veterinaria
     @Autowired private VetVisitRepository vetVisitRepository;
     public VetVisit addVisit(Long medicalRecordId, VetVisit visit) {
         MedicalRecord record = medicalRecordRepository.findById(medicalRecordId)
