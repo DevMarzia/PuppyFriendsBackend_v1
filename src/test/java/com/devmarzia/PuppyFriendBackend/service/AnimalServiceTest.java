@@ -54,8 +54,8 @@ public class AnimalServiceTest {
         Animal result = animalService.createAnimal(dto);
 
         assertNotNull(result); // Il risultato non deve essere null
-        assertEquals("Fido", result.getName()); // Il nome deve essere Fido
-        assertEquals("Media", result.getSize().getLabel()); // La taglia deve essere Media
+        assertEquals("Fido", result.getName()); 
+        assertEquals("Media", result.getSize().getLabel()); 
 
         verify(animalRepository, times(1)).save(any(Animal.class));
     }
