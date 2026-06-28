@@ -15,7 +15,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // 1. Gestisce i casi "Non Trovato" (es. ID sbagliato) -> Restituisce 404
+    // Gestisce i casi "Non Trovato" (es. ID sbagliato) -> Restituisce 404
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiError> handleResourceNotFoundException(ResourceNotFoundException ex) {
         ApiError error = new ApiError(
@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    // 2. GESTIONE VALIDAZIONE -> Restituisce 400
+    // GESTIONE VALIDAZIONE -> Restituisce 400
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    // 3. Gestisce errori generici (quelli imprevisti) -> Restituisce 500
+    // Gestisce errori generici (quelli imprevisti) -> Restituisce 500
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGlobalException(Exception ex) {
         ApiError error = new ApiError(
