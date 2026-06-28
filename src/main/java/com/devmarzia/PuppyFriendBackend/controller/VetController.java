@@ -15,25 +15,25 @@ public class VetController {
     @Autowired
     private VetService vetService;
 
-    // Crea Cartella Clinica: POST /api/vet/animals/{id}/record
+    // Crea Cartella Clinica
     @PostMapping("/animals/{animalId}/record")
     public ResponseEntity<MedicalRecord> createRecord(@PathVariable Long animalId, @RequestBody MedicalRecord record) {
         return ResponseEntity.ok(vetService.createMedicalRecord(animalId, record));
     }
 
-    // Aggiunge Vaccino: POST /api/vet/records/{id}/vaccines
+    // Aggiunge Vaccino
     @PostMapping("/records/{recordId}/vaccines")
     public ResponseEntity<Vaccination> addVaccine(@PathVariable Long recordId, @RequestBody Vaccination vaccine) {
         return ResponseEntity.ok(vetService.addVaccine(recordId, vaccine));
     }
 
-    // Vede Tutto: GET /api/vet/animals/{id}
+    // Visualizza tutto
     @GetMapping("/animals/{animalId}")
     public ResponseEntity<MedicalRecord> getFullHistory(@PathVariable Long animalId) {
         return ResponseEntity.ok(vetService.getMedicalRecordByAnimal(animalId));
     }
 
-    // Aggiunge Visita: POST /api/vet/records/{id}/visits
+    // Aggiunge Visita
     @PostMapping("/records/{recordId}/visits")
     public ResponseEntity<VetVisit> addVisit(@PathVariable Long recordId, @RequestBody VetVisit visit) {
         return ResponseEntity.ok(vetService.addVisit(recordId, visit));
