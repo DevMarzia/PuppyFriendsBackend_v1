@@ -6,12 +6,12 @@ import com.devmarzia.PuppyFriendBackend.repository.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-@Component // Dice a Spring: "Gestisci tu questa classe, perchè è un componente dell'app"
+@Component 
 public class RoleRunner implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
 
-    // Costruttore: Spring ci inietta automaticamente il Repository dei ruoli
+    // Costruttore, Spring ci inietta automaticamente il Repository dei ruoli
     public RoleRunner(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
@@ -21,11 +21,11 @@ public class RoleRunner implements CommandLineRunner {
         // Questo metodo viene eseguito automaticamente appena l'app si avvia.
         System.out.println("RoleRunner avviato: controllo presenza ruoli...");
 
-        // Cicliamo su tutti i valori (ADMIN, VOLUNTEER, ADOPTER)
+        // Cicla su tutti i valori (ADMIN, VOLUNTEER, ADOPTER)
         for (RoleType roleType : RoleType.values()) {
 
             if (roleRepository.findByRoleType(roleType).isEmpty()) {
-                // Se NON esiste (isEmpty), lo creiamo
+                // Se non esiste (isEmpty), lo creiamo
                 Role newRole = new Role();
                 newRole.setRoleType(roleType);
 
