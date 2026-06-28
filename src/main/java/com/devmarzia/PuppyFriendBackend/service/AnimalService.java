@@ -26,11 +26,11 @@ public class AnimalService {
 
     // INSERIMENTO ANIMALE
     public Animal createAnimal(AnimalDto dto) {
-        // 1. Cerchiamo la taglia nel DB
+        // Cerchiamo la taglia nel DB
         Size size = sizeRepository.findByLabel(dto.getSizeLabel())
                 .orElseThrow(() -> new ResourceNotFoundException("Taglia", "label", dto.getSizeLabel()));;
 
-        // 2. Creiamo l'entity
+        // Creiamo l'entity
         Animal animal = new Animal();
         animal.setName(dto.getName());
         animal.setBreed(dto.getBreed());
@@ -46,19 +46,19 @@ public class AnimalService {
 
     // RICERCA CON FILTRI E ORDINAMENTO
     public List<Animal> searchAnimals(String status, String sizeLabel) {
-        // 1. Se ho sia STATO che TAGLIA -> filtro per entrambi
+        // Se ho sia STATO che TAGLIA -> filtro per entrambi
         if (status != null && sizeLabel != null) {
             return animalRepository.findBySize_LabelAndStatus(sizeLabel, status.toUpperCase());
         }
-        // 2. Se ho solo lo STATO -> filtro per stato
+        // Se ho solo lo STATO -> filtro per stato
         else if (status != null) {
             return animalRepository.findByStatus(status.toUpperCase());
         }
-        // 3. Solo filtro TAGLIA
+        // Solo filtro TAGLIA
         else if (sizeLabel != null) {
             return animalRepository.findBySize_Label(sizeLabel);
         }
-        // 4. Se non ho filtri -> restituisco tutto ordinato per data di ingresso (i più recenti prima)
+        // Se non ho filtri restituisce tutto ordinato per data di ingresso (i più recenti prima)
         else {
             return animalRepository.findAll(Sort.by(Sort.Direction.DESC, "entryDate"));
         }
