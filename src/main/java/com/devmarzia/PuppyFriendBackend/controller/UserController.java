@@ -26,17 +26,17 @@ public class UserController {
     @PostMapping("/me/upload-photo")
     public ResponseEntity<String> uploadProfilePhoto(@RequestParam("file") MultipartFile file,
                                                      Authentication authentication) {
-        // 1. Recupera l'email dell'utente loggato dal Token
+        // Recupera l'email dell'utente loggato dal Token
         String email = authentication.getName();
 
-        // 2. Trova l'utente nel DB
+        // Trova l'utente nel DB
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Utente non trovato"));
 
-        // 3. Carica la foto su Cloudinary
+        // Carica la foto su Cloudinary
         String imageUrl = cloudinaryService.uploadFile(file);
 
-        // 4. Aggiorna l'utente nel DB con il nuovo URL
+        // Aggiorna l'utente nel DB con il nuovo URL
         user.setProfileImageUrl(imageUrl);
         userRepository.save(user);
 
