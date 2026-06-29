@@ -22,7 +22,7 @@ public class MedicalRecord {
     private Animal animal;
 
     @OneToMany(mappedBy = "medicalRecord", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("medicalRecord") // Non stampare il padre quando stampi i figli
+    @JsonIgnoreProperties("medicalRecord") 
     private List<Vaccination> vaccinations;
 
     @OneToMany(mappedBy = "medicalRecord", cascade = CascadeType.ALL)
