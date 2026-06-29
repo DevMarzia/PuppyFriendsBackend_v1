@@ -35,11 +35,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable()) // Disabilitiamo CSRF per le API REST
+        http.csrf(csrf -> csrf.disable()) // Disabilita CSRF per le API REST
                 .authorizeHttpRequests((authorize) -> authorize
                         // Le API di autenticazione sono pubbliche
                         .requestMatchers("/api/auth/**").permitAll()
-                        // Esempio: Visualizzare gli animali è pubblico (opzionale, a tua scelta)
+                        
                         .requestMatchers(HttpMethod.GET, "/api/animals/**").permitAll()
                         // Tutte le altre richieste richiedono autenticazione
                         .anyRequest().authenticated()
