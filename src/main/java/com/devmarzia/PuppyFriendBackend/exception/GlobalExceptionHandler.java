@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    // Gestisce errori generici (quelli imprevisti) -> Restituisce 500
+    // Gestisce errori imprevisti -> Restituisce 500
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGlobalException(Exception ex) {
         ApiError error = new ApiError(
