@@ -11,7 +11,7 @@ public class RoleRunner implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
 
-    // Costruttore, Spring ci inietta automaticamente il Repository dei ruoli
+    // nel Costruttore, Spring ci inietta automaticamente il Repository dei ruoli
     public RoleRunner(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
@@ -25,11 +25,11 @@ public class RoleRunner implements CommandLineRunner {
         for (RoleType roleType : RoleType.values()) {
 
             if (roleRepository.findByRoleType(roleType).isEmpty()) {
-                // Se non esiste (isEmpty), lo creiamo
+                // Se non esiste (isEmpty), lo crea
                 Role newRole = new Role();
                 newRole.setRoleType(roleType);
 
-                roleRepository.save(newRole); // Lo salviamo nel DB
+                roleRepository.save(newRole); // Lo salva nel DB
                 System.out.println("Ruolo inserito nel DB: " + roleType);
             }
         }
